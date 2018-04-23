@@ -6,7 +6,7 @@ library("neuralnet")
 #Generate 6 random numbers uniformly distributed between 0 and 100 (for very good results in such a range)
 #And store them as a dataframe
 traininginput <- as.data.frame(runif(10, min=1, max=10))
-trainingoutput <- log10(traininginput)
+trainingoutput <- (traininginput^(-0.25))
 #Column bind the data into one variable
 trainingdata <- cbind(traininginput,trainingoutput)
 colnames(trainingdata) <- c("Input","Output")
@@ -32,7 +32,7 @@ ls(net.results)
 print(net.results$net.result)
 
 #Lets display a better version of the results
-cleanoutput <- cbind(testdata,log10(testdata),
+cleanoutput <- cbind(testdata,testdata^(-0.25),
                      as.data.frame(net.results$net.result))
 colnames(cleanoutput) <- c("Input","Expected Output","Neural Net Output")
 print(cleanoutput)
