@@ -1,0 +1,7 @@
+library(ahp)
+smartfonyAhp <- Load('smartfony.ahp')
+Calculate(smartfonyAhp)
+print(smartfonyAhp, priority = function(x) x$sparent$priority["total", x$name])
+Visualize(smartfonyAhp)
+Analyze(smartfonyAhp)
+AnalyzeTable(smartfonyAhp)
