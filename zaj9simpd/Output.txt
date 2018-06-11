@@ -1,0 +1,83 @@
+> #install.packages("C50")
+> library("C50")
+> data <- matrix(c(1296000, 4096000, 4096000, 4096000, 1296000, 3317760, 4096000, 3317760, 3317760, 3317760, 5184000, 4096000,
++                  8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 16, 16,
++                  128, 128, 128, 256, 256, 256, 256, 256, 256, 512, 512, 256,
++                  3779, 5599, 5699, 6899, 5199, 5899, 6799, 6499, 5999, 7199, 12899, 9399), 12, 4)
+> labels <- c("1", "2", "3", "4", "5")
+> result <- c(2, 3, 4, 4, 3, 4, 4, 3, 3, 4, 3, 3)
+> test <- factor(result, labels)
+> colnames(data) <- c("Ekran", "Ram", "Dysk", "Cena")
+> 
+> ruleModel <- C5.0(x = data[,], y = test, rules = TRUE)
+> ruleModel
+
+Call:
+C5.0.default(x = data[, ], y = test, rules = TRUE)
+
+Rule-Based Model
+Number of samples: 12 
+Number of predictors: 4 
+
+Number of Rules: 3 
+
+Non-standard options: attempt to group attributes
+
+> summary(ruleModel)
+
+Call:
+C5.0.default(x = data[, ], y = test, rules = TRUE)
+
+
+C5.0 [Release 2.07 GPL Edition]  	Mon Jun 11 12:47:16 2018
+-------------------------------
+
+Class specified by attribute `outcome'
+
+Read 12 cases (5 attributes) from undefined.data
+
+Rules:
+
+Rule 1: (2/1, lift 6.0)
+	Ekran <= 1296000
+	->  class 2  [0.500]
+
+Rule 2: (2, lift 1.5)
+	Ram > 8
+	->  class 3  [0.750]
+
+Rule 3: (8/3, lift 1.4)
+	Ekran > 1296000
+	Ram <= 8
+	->  class 4  [0.600]
+
+Default class: 3
+
+
+Evaluation on training data (12 cases):
+
+	        Rules     
+	  ----------------
+	    No      Errors
+
+	     3    4(33.3%)   <<
+
+
+	   (a)   (b)   (c)   (d)   (e)    <-classified as
+	  ----  ----  ----  ----  ----
+	                                  (a): class 1
+	           1                      (b): class 2
+	           1     2     3          (c): class 3
+	                       5          (d): class 4
+	                                  (e): class 5
+
+
+	Attribute usage:
+
+	 83.33%	Ekran
+	 83.33%	Ram
+
+
+Time: 0.0 secs
+
+> 

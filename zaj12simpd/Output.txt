@@ -1,0 +1,37 @@
+library("sets")
+> X <- c("A", "B", "C")
+> gset(support = X, universe = LETTERS[1:10])
+{"A", "B", "C"}
+> 
+> N <- fuzzy_normal (mean = 0, sd = 1)
+> N( -3:3)
+[1] 0.0111090 0.1353353 0.6065307 1.0000000 0.6065307 0.1353353 0.0111090
+> 
+> gset(charfun = N, universe = -3:3)
+{-3L [0.011109], -2L [0.1353353], -1L [0.6065307], 0L [1], 1L [0.6065307], 2L [0.1353353], 3L [0.011109]}
+> fuzzy_normal_gset (universe = -3:3)
+{-3L [0.011109], -2L [0.1353353], -1L [0.6065307], 0L [1], 1L [0.6065307], 2L [0.1353353], 3L [0.011109]}
+> fuzzy_poisson <- charfun_generator(dpois)
+> gset (charfun = fuzzy_poisson(10),
++       universe = seq(0 ,20, 2))
+{0 [0.00036288], 2 [0.018144], 4 [0.1512], 6 [0.504], 8 [0.9], 10 [1], 12 [0.7575758], 14 [0.4162504], 16 [0.1734377], 18 [0.05667898], 20
+ [0.01491552]}
+> 
+> ## creating a series of fuzzy normal sets
+> fuzzy_tuple (fuzzy_normal, 5)
+(<<gset(201)>>, <<gset(201)>>, <<gset(201)>>, <<gset(201)>>, <<gset(201)>>)
+> 
+> ## a fuzzy multi set
+> plot(fuzzy_bell)
+> 
+> ## creating a sequence of sets
+> plot (fuzzy_tuple (fuzzy_cone,10),
++       col = gray.colors(10))
+> 
+> x <- fuzzy_normal_gset()
+> y <- fuzzy_trapezoid_gset(corners =
++                             c(5,10,15,17), height = c(0.7,1))
+> plot(tuple(x,y), lty = 3)
+> lines (x | y, col = 2)
+> lines (gset_mean(x,y), col = 3, lty = 2)
+> 
